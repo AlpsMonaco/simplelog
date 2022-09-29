@@ -97,7 +97,12 @@ inline void Log::FormatLog(std::string_view log_type, std::string_view log_conte
     log_buffer += '0';
   log_buffer += std::to_string(tm.tm_sec);
   log_buffer += '.';
-  log_buffer += std::to_string(ms - s * 1000);
+  ms -= s * 1000;
+  if (ms < 100)
+    log_buffer += '0';
+  if (ms < 10)
+    log_buffer += '0';
+  log_buffer += std::to_string(ms);
   log_buffer += "] [";
   log_buffer += log_type;
   log_buffer += "] ";
