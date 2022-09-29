@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 }
 
 ```
-By default,the log file name is you executable name.Assumes that your executable name is `calculate`,  
+By default,the log file name is your executable name.Assumes that your executable name is `calculate`,  
 then a file `calculate.log` will be created and logged to whenever any `simple::Log` function is called.  
 You could also use macro `SIMPLE_LOG_FILENAME` to custom your own log name instead of executable name.  
 
