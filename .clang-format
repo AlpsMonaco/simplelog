@@ -1,0 +1,9 @@
+BasedOnStyle: WebKit
+
+UseTab: Never
+TabWidth: 2
+IndentWidth: 2
+AccessModifierOffset: -2
+SpaceInEmptyBlock: false
+Cpp11BracedListStyle: true
+SpaceBeforeCpp11BracedList: false
