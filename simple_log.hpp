@@ -41,6 +41,10 @@ protected:
   Log();
   static Log& Instance();
 
+  static constexpr std::string_view log_prefix_buffer_format = "[YYYY-mm-dd HH:MM:ss.";
+  static constexpr size_t log_prefix_buffer_size = log_prefix_buffer_format.size() + 1;
+  static constexpr std::string_view log_prefix_format = "[%Y-%m-%d %H:%M:%S.";
+
   std::ofstream ofs_;
   bool has_open_;
 #if defined(PLATFORM_POSIX) || defined(__linux__)
@@ -79,29 +83,9 @@ inline void Log::FormatLog(std::string_view log_type, std::string_view log_conte
   auto s = std::chrono::duration_cast<std::chrono::seconds>(now).count();
   tm tm;
   localtime_r(&s, &tm);
-  std::string log_buffer("[");
-  log_buffer += std::to_string(tm.tm_year + 1900);
-  log_buffer += '-';
-  if (tm.tm_mon < 9)
-    log_buffer += '0';
-  log_buffer += std::to_string(tm.tm_mon + 1);
-  log_buffer += '-';
-  if (tm.tm_mday < 10)
-    log_buffer += '0';
-  log_buffer += std::to_string(tm.tm_mday);
-  log_buffer += ' ';
-  if (tm.tm_hour < 10)
-    log_buffer += '0';
-  log_buffer += std::to_string(tm.tm_hour);
-  log_buffer += ":";
-  if (tm.tm_min < 10)
-    log_buffer += '0';
-  log_buffer += std::to_string(tm.tm_min);
-  log_buffer += ":";
-  if (tm.tm_sec < 10)
-    log_buffer += '0';
-  log_buffer += std::to_string(tm.tm_sec);
-  log_buffer += '.';
+  char time_prefix_buffer[log_prefix_buffer_size];
+  strftime(time_prefix_buffer, log_prefix_buffer_size, log_prefix_format.data(), &tm);
+  std::string log_buffer(time_prefix_buffer);
   ms -= s * 1000;
   if (ms < 100)
     log_buffer += '0';
