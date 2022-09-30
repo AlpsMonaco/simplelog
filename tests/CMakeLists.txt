@@ -27,3 +27,24 @@ if(UNIX)
             pthread
     )
 endif()
+
+add_executable(extreme_test
+    ${PROJECT_SOURCE_DIR}/tests/extreme_test.cpp
+)
+
+target_include_directories(extreme_test
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/tests/lib
+)
+
+target_link_libraries(extreme_test
+        PRIVATE
+            lib_test
+)
+
+if(UNIX)
+    target_link_libraries(extreme_test
+        PRIVATE
+            pthread
+    )
+endif()

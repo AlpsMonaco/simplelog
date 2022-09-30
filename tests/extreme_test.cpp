@@ -1,0 +1,27 @@
+#include <iostream>
+#include <lib_test.h>
+#define SIMPLE_LOG_NO_PRINT
+#include <simple_log.hpp>
+#include <thread>
+#include <vector>
+
+namespace sl = simplelog;
+
+int main(int argc, char** argv)
+{
+  std::cout << simplelog::GetLogName() << std::endl;
+  std::vector<std::thread> thread_list;
+  for (size_t i = 0; i < 100; i++) {
+    thread_list.emplace_back(
+        []() -> void {
+          for (size_t i = 0; i < 1000; i++) {
+            sl::Log::Info("info");
+            sl::Log::Error("error");
+            sl::Log::Debug("debug");
+            CallLibTest();
+          }
+        });
+  }
+  for (auto& t : thread_list)
+    t.join();
+}

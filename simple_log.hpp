@@ -5,7 +5,7 @@
 #define USER_DEFINE_SIMPLE_LOG_FILENAME SIMPLE_LOG_FILENAME
 #endif
 
-#ifdef SIMPLPE_LOG_NO_PRINT
+#ifdef SIMPLE_LOG_NO_PRINT
 #define USE_DEFINE_SIMPLE_LOG_NO_PRINT
 #else
 #include <iostream>
