@@ -25,13 +25,20 @@ By default,the log file name is your executable name.Assumes that your executabl
 then a file `calculate.log` will be created and logged to whenever any `simple::Log` function is called.  
 You could also define macro `SIMPLE_LOG_FILENAME` to custom your own log name instead of executable name.  
 
+```c++
+#define SIMPLE_LOG_FILENAME "trivial.log"
+#include <simple_log.hpp>
+
+...
+```
+
 ## Console
 By default,`simplelog` will also print log content to stdout.   
 You could define macro `SIMPLPE_LOG_NO_PRINT` to disable it.  
 
 
 ```c++
-#define SIMPLE_LOG_FILENAME "trivial.log"
+#define SIMPLPE_LOG_NO_PRINT
 #include <simple_log.hpp>
 
 ...
