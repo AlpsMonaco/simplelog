@@ -5,9 +5,14 @@
 #define USER_DEFINE_SIMPLE_LOG_FILENAME SIMPLE_LOG_FILENAME
 #endif
 
+#ifdef SIMPLPE_LOG_NO_PRINT
+#define USE_DEFINE_SIMPLE_LOG_NO_PRINT
+#else
+#include <iostream>
+#endif
+
 #include <chrono>
 #include <fstream>
-#include <iostream>
 #include <string>
 #include <string_view>
 
@@ -108,7 +113,9 @@ inline void Log::FormatLog(std::string_view log_type, std::string_view log_conte
   log_buffer += "] ";
   log_buffer += log_content;
   log_buffer += '\n';
+#ifndef USE_DEFINE_SIMPLE_LOG_NO_PRINT
   std::cout << log_buffer;
+#endif
   if (IsOpen()) {
 #if defined(PLATFORM_POSIX) || defined(__linux__)
     std::lock_guard<std::mutex> lg(Instance().mu_);
